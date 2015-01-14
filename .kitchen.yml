@@ -1,0 +1,24 @@
+---
+driver_plugin: vagrant
+driver_config:
+    require_chef_omnibus: false
+
+platforms:
+  - name: ubuntu-14.04-chef
+    driver:
+      box: ubuntu-14.04-chef
+      box_url: http://bit.ly/1weDdiJ
+      network:
+        - ['private_network', {ip: '172.28.128.3'}]
+
+provisioner:
+  name: chef_zero
+
+suites:
+  - name: default
+    data_bags_path: 'test/integration/default/data_bags'
+    #encrypted_data_bag_secret_key_path: 'test/integration/default/encrypted_data_bag_secret'
+    run_list:
+      - recipe[alfresco::database]
+    attributes:
+      alfresco:

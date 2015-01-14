@@ -1,0 +1,7 @@
+name 'alfresco'
+maintainer 'Leonard TAVAE'
+maintainer_email 'leonard.tavae@informatique.gov.pf'
+license 'Apache 2.0'
+description 'Installs/Configures alfresco'
+long_description 'Installs/Configures alfresco'
+version '0.1.0'
