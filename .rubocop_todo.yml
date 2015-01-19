@@ -8,4 +8,4 @@
 # Offense count: 14
 # Configuration parameters: AllowURI.
 Metrics/LineLength:
-  Max: 135
+  Max: 260
