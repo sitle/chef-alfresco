@@ -1,24 +1,89 @@
 ---
 driver_plugin: vagrant
 driver_config:
-    require_chef_omnibus: false
+    require_chef_omnibus: 11.16.4
 
 platforms:
-  - name: ubuntu-14.04-chef
+  - name: ubuntu
     driver:
+      vagrantfile_erb: Vagrantfile.erb
       box: ubuntu-14.04-chef
-      box_url: http://bit.ly/1weDdiJ
+      box_url: http://bit.ly/1qBrpXj
       network:
         - ['private_network', {ip: '172.28.128.3'}]
+      customize:
+        memory: 2048
+        cpus: 2
+  - name: debian
+    driver:
+      vagrantfile_erb: Vagrantfile.erb
+      box: debian-7-chef
+      box_url: http://bit.ly/1weDdiJ
+      network:
+        - ['private_network', {ip: '172.28.128.4'}]
+      customize:
+        memory: 2048
+        cpus: 2
 
 provisioner:
-  name: chef_zero
+  name: chef_solo
 
 suites:
   - name: default
     data_bags_path: 'test/integration/default/data_bags'
-    #encrypted_data_bag_secret_key_path: 'test/integration/default/encrypted_data_bag_secret'
+    encrypted_data_bag_secret_key_path: 'test/integration/default/encrypted_data_bag_secret'
     run_list:
+      - recipe[apt::default]
+      - recipe[alfresco::database]
+      - recipe[alfresco::alfresco]
+      - recipe[alfresco::share]
+      - recipe[alfresco::solr]
+      - recipe[alfresco::reverse]
+    attributes:
+      alfresco:
+        domain_name: 'alfresco.dev'
+        database_type: 'mysql'
+
+  - name: database
+    data_bags_path: 'test/integration/database/data_bags'
+    encrypted_data_bag_secret_key_path: 'test/integration/database/encrypted_data_bag_secret'
+    run_list:
+      - recipe[apt::default]
       - recipe[alfresco::database]
     attributes:
       alfresco:
+        database_type: 'mysql'
+
+  - name: alfresco
+    data_bags_path: 'test/integration/alfresco/data_bags'
+    encrypted_data_bag_secret_key_path: 'test/integration/alfresco/encrypted_data_bag_secret'
+    run_list:
+      - recipe[apt::default]
+      - recipe[alfresco::database]
+      - recipe[alfresco::alfresco]
+    attributes:
+      alfresco:
+        domain_name: 'alfresco.dev'
+        database_type: 'mysql'
+
+  - name: share
+    data_bags_path: 'test/integration/share/data_bags'
+    encrypted_data_bag_secret_key_path: 'test/integration/share/encrypted_data_bag_secret'
+    run_list:
+      - recipe[apt::default]
+      - recipe[alfresco::database]
+      - recipe[alfresco::share]
+    attributes:
+      alfresco:
+        domain_name: 'alfresco.dev'
+        database_type: 'mysql'
+
+  - name: solr
+    data_bags_path: 'test/integration/solr/data_bags'
+    encrypted_data_bag_secret_key_path: 'test/integration/solr/encrypted_data_bag_secret'
+    run_list:
+      - recipe[apt::default]
+      - recipe[alfresco::solr]
+    attributes:
+      alfresco:
+        solr_link: 'http://10.4.0.2/~sitle/alfresco/solr-5.0.c.war'
