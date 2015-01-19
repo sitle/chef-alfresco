@@ -9,7 +9,6 @@ VAGRANTFILE_API_VERSION = '2'
 Vagrant.require_version '>= 1.5.0'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-
   config.vm.hostname = 'alfresco'
 
   config.omnibus.chef_version = '11.16.4'
