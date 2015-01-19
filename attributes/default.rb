@@ -39,4 +39,4 @@ default['alfresco']['apps_group'] = 'tomcat7'
 # Alfresco reverse proxy settings
 #
 default['alfresco']['reverse'] = true
-default['alfresco']['domain_name'] = 'local.dev'
+default['alfresco']['domain_name'] = 'alfresco.dev'
