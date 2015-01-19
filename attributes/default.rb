@@ -25,6 +25,9 @@ default['alfresco']['solr_link'] = "https://artifacts.alfresco.com/nexus/service
 default['alfresco']['solr_config_link'] = "https://artifacts.alfresco.com/nexus/service/local/repo_groups/public/content/org/alfresco/alfresco-solr4/#{node['alfresco']['version']}/alfresco-solr4-#{node['alfresco']['version']}-config-ssl.zip"
 default['alfresco']['swf_link'] = 'http://www.swftools.org/swftools-2013-04-09-1007.tar.gz'
 default['alfresco']['mysql_jdbc_link'] = "http://cdn.mysql.com/Downloads/Connector-J/mysql-connector-java-#{node['alfresco']['mysql_connector_version']}.tar.gz"
+
+default['alfresco']['postgresql_jdbc_link'] = 'http://jdbc.postgresql.org/download/postgresql-9.3-1102.jdbc41.jar'
+
 default['alfresco']['keystore_link'] = 'http://svn.alfresco.com/repos/alfresco-open-mirror/alfresco/HEAD/root/projects/repository/config/alfresco/keystore'
 
 default['alfresco']['alfresco_port'] = 8080

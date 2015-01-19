@@ -85,27 +85,40 @@ template node['tomcat']['config_dir'] + '/tomcat-users.xml' do
   mode '0640'
 end
 
-# Download Mysql jdbc connector for JAVA
-#
-remote_file node['alfresco']['home'] + '/mysql_jdbc.tar.gz' do
-  owner node['alfresco']['apps_user']
-  group node['alfresco']['apps_group']
-  mode '0644'
-  source node['alfresco']['mysql_jdbc_link']
-  not_if { ::File.exist?('/usr/share/tomcat7/lib/mysql-connector-java-5.1.34-bin.jar') }
-end
+case node['alfresco']['database_type']
+when 'mysql'
+  # Download Mysql JDBC connector for JAVA
+  #
+  remote_file node['alfresco']['home'] + '/mysql_jdbc.tar.gz' do
+    owner node['alfresco']['apps_user']
+    group node['alfresco']['apps_group']
+    mode '0644'
+    source node['alfresco']['mysql_jdbc_link']
+    not_if { ::File.exist?('/usr/share/tomcat7/lib/mysql-connector-java-5.1.34-bin.jar') }
+  end
 
-# Extracting the connector
-#
-bash 'Extract mysql-connector' do
-  user 'root'
-  cwd node['alfresco']['home']
-  code <<-EOH
-tar -xvzf mysql_jdbc.tar.gz mysql-connector-java-5.1.34/mysql-connector-java-5.1.34-bin.jar
-mv #{node['alfresco']['home']}/mysql-connector-java-5.1.34/* /usr/share/tomcat7/lib/
-rm -fr #{node['alfresco']['home']}/mysql*
-  EOH
-  not_if { ::File.exist?('/usr/share/tomcat7/lib/mysql-connector-java-5.1.34-bin.jar') }
+  # Extracting the connector
+  #
+  bash 'Extract mysql-connector' do
+    user 'root'
+    cwd node['alfresco']['home']
+    code <<-EOH
+  tar -xvzf mysql_jdbc.tar.gz mysql-connector-java-5.1.34/mysql-connector-java-5.1.34-bin.jar
+  mv #{node['alfresco']['home']}/mysql-connector-java-5.1.34/* /usr/share/tomcat7/lib/
+  rm -fr #{node['alfresco']['home']}/mysql*
+    EOH
+    not_if { ::File.exist?('/usr/share/tomcat7/lib/mysql-connector-java-5.1.34-bin.jar') }
+  end
+when 'postgresql'
+  # Download Postgresql JDBC connector for JAVA
+  #
+  remote_file node.set['tomcat']['home'] + '/lib/postgresql-jdbc.jar' do
+    owner node['alfresco']['apps_user']
+    group node['alfresco']['apps_group']
+    mode '0644'
+    source node['alfresco']['postgresql_jdbc_link']
+    not_if { ::File.exist?(node.set['tomcat']['home'] + '/lib/postgresql-jdbc.jar') }
+  end
 end
 
 # Link to tomcat from alfresco home

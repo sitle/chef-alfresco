@@ -11,6 +11,7 @@ supports 'debian', '>= 7'
 
 depends 'apt'
 depends 'mysql', '~>5.6.1'
+depends 'postgresql'
 depends 'database'
 depends 'java'
 depends 'tomcat'
