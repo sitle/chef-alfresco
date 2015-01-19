@@ -1,0 +1,31 @@
+<VirtualHost *:80>
+  ServerName  <%= node['alfresco']['domain_name'] %>
+  ProxyRequests off
+
+  <Proxy *>
+    <% case node['platform'] %>
+    <% when 'debian' %>
+    Order Deny,Allow
+    Allow from all
+    <% when 'ubuntu' %>
+    Require all granted
+    <% end %>
+  </Proxy>
+
+  ProxyPass /alfresco ajp://localhost:8009/alfresco
+  ProxyPassReverse /alfresco ajp://localhost:8009/alfresco
+
+  ProxyPass /share ajp://localhost:8009/share
+  ProxyPassReverse /share ajp://localhost:8009/share
+
+  <Location /alfresco/webdav/ >
+    <Limit OPTIONS PROPFIND GET REPORT MKACTIVITY PROPPATCH PUT CHECKOUT MKCOL MOVE COPY DELETE LOCK UNLOCK MERGE>
+        Order Deny,Allow
+        Allow from all
+        Satisfy Any
+    </Limit>
+  </Location>
+
+  RedirectMatch ^/$ /share/
+
+</VirtualHost>

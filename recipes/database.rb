@@ -17,6 +17,11 @@
 # limitations under the License.
 #
 
-if node['alfresco']['database_type'] == 'mysql'
+# Install the type of database you need
+#
+case node['alfresco']['database_type']
+when 'mysql'
   include_recipe 'alfresco::_mysql'
+when 'postgresql'
+  include_recipe 'alfresco::_postgresql'
 end
