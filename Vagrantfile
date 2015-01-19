@@ -24,7 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.hostmanager.include_offline = true
   config.hostmanager.aliases = %w(local.dev alfresco.dev)
 
-  config.vm.box = BOX_NAME 
+  config.vm.box = BOX_NAME
   config.vm.box_url = BOX_LINK
   # config.vm.network :private_network, type: 'dhcp'
   # config.vm.network :public_network, ip: '10.4.0.20'
