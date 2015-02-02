@@ -7,7 +7,7 @@ long_description 'Installs/Configures alfresco'
 version '0.1.0'
 
 supports 'ubuntu', '= 14.04'
-supports 'debian', '>= 7'
+supports 'debian', '>= 7.7'
 
 depends 'apt'
 depends 'mysql', '~>5.6.1'
