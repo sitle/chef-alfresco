@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 BOX_NAME = 'ubuntu-14.04-chef'
-BOX_LINK = 'http://bit.ly/1qBrpXj'
+BOX_LINK = 'http://bit.ly/dsi-ubuntu-1404-box'
 
 VAGRANTFILE_API_VERSION = '2'
 

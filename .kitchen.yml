@@ -8,7 +8,7 @@ platforms:
     driver:
       vagrantfile_erb: Vagrantfile.erb
       box: ubuntu-14.04-chef
-      box_url: http://bit.ly/1qBrpXj
+      box_url: http://bit.ly/dsi-ubuntu-1404-box
       network:
         - ['private_network', {ip: '172.28.128.3'}]
       customize:
@@ -18,7 +18,7 @@ platforms:
     driver:
       vagrantfile_erb: Vagrantfile.erb
       box: debian-7-chef
-      box_url: http://bit.ly/1weDdiJ
+      box_url: http://bit.ly/dsi-debian-7-box
       network:
         - ['private_network', {ip: '172.28.128.4'}]
       customize:
