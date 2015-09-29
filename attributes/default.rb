@@ -4,7 +4,7 @@
 default['alfresco']['version'] = '5.0.c'
 default['alfresco']['java_version'] = '7'
 default['alfresco']['java_type'] = 'openjdk'
-default['alfresco']['mysql_connector_version'] = '5.1.34'
+default['alfresco']['mysql_connector_version'] = '5.1.36'
 
 # Database settings
 #
